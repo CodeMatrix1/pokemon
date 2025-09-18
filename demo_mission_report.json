@@ -1,0 +1,95 @@
+{
+  "mission_summary": {
+    "type": "protection",
+    "priority": "high",
+    "targets": [
+      "Bulbasaur",
+      "Charmander"
+    ],
+    "protected": [
+      "Pikachu",
+      "Eevee"
+    ],
+    "targeting_coordinates": [
+      [
+        125.0,
+        175.0
+      ]
+    ]
+  },
+  "targeting_details": [
+    {
+      "species": "Bulbasaur",
+      "coordinates": [
+        125.0,
+        175.0
+      ],
+      "confidence": 0.95,
+      "bounding_box": [
+        100,
+        150,
+        50,
+        50
+      ],
+      "status": "target"
+    },
+    {
+      "species": "Pikachu",
+      "coordinates": null,
+      "confidence": 0.87,
+      "bounding_box": [
+        200,
+        250,
+        50,
+        50
+      ],
+      "status": "protected"
+    },
+    {
+      "species": "Charizard",
+      "coordinates": null,
+      "confidence": 0.92,
+      "bounding_box": [
+        300,
+        100,
+        80,
+        80
+      ],
+      "status": "neutral"
+    }
+  ],
+  "detection_results": [
+    {
+      "species": "Bulbasaur",
+      "bounding_box": [
+        100,
+        150,
+        50,
+        50
+      ],
+      "confidence": 0.95
+    },
+    {
+      "species": "Pikachu",
+      "bounding_box": [
+        200,
+        250,
+        50,
+        50
+      ],
+      "confidence": 0.87
+    },
+    {
+      "species": "Charizard",
+      "bounding_box": [
+        300,
+        100,
+        80,
+        80
+      ],
+      "confidence": 0.92
+    }
+  ],
+  "raw_orders": "\n    URGENT ELIMINATION MISSION: Sector 7 has been compromised by hostile Pok\u00e9mon activity.\n    Multiple Bulbasaur and Charmander have been detected exhibiting aggressive behavior.\n    Immediate neutralization is required to prevent civilian casualties.\n    Exercise extreme caution around Pikachu and Eevee - they are friendly and must be protected.\n    This is a high-priority operation with authorization for lethal force.\n    ",
+  "timestamp": "2025-09-17T23:32:49.614441"
+}

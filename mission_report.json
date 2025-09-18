@@ -1,0 +1,57 @@
+{
+  "mission_summary": {
+    "targets": [
+      "Bulbasaur",
+      "Charizard",
+      "Pikachu"
+    ],
+    "protected": [],
+    "targeting_coordinates": [
+      [
+        125.0,
+        175.0
+      ],
+      [
+        225.0,
+        275.0
+      ],
+      [
+        340.0,
+        140.0
+      ]
+    ]
+  },
+  "detection_results": [
+    {
+      "species": "Bulbasaur",
+      "bounding_box": [
+        100,
+        150,
+        50,
+        50
+      ],
+      "confidence": 0.95
+    },
+    {
+      "species": "Pikachu",
+      "bounding_box": [
+        200,
+        250,
+        50,
+        50
+      ],
+      "confidence": 0.87
+    },
+    {
+      "species": "Charizard",
+      "bounding_box": [
+        300,
+        100,
+        80,
+        80
+      ],
+      "confidence": 0.92
+    }
+  ],
+  "raw_orders": "\n    HQ has detected unusual Bulbasaur activity in the area. Field sensors logged anomalous behavior that suggests an imminent threat.\n    Remember there are Pikachu and Charizard nearby \u2014 take care not to draw them into combat. \n    You are to neutralize the bulbasaurs immediately.\n    "
+}
