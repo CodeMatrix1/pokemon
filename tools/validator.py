@@ -132,7 +132,16 @@ def load_predictions_csv(path: str) -> Dict[str, List[Point]]:
     """
     out: Dict[str, List[Point]] = {}
     with open(path, "r", encoding="utf-8") as f:
+        # Check if file is empty
+        content = f.read().strip()
+        if not content:
+            return {}
+        
+        # Reset file pointer
+        f.seek(0)
         reader = csv.DictReader(f)
+        if reader.fieldnames is None:
+            raise ValueError("CSV file is empty or malformed")
         if "image_id" not in reader.fieldnames or "points" not in reader.fieldnames:
             raise ValueError("CSV must contain 'image_id' and 'points' columns")
         for row in reader:
@@ -144,10 +153,18 @@ def load_predictions_csv(path: str) -> Dict[str, List[Point]]:
                 for p in pts:
                     if not (isinstance(p, (list, tuple)) and len(p) == 2):
                         continue
-                    pts_t.append((float(p[0]), float(p[1])))
+                    try:
+                        pts_t.append((float(p[0]), float(p[1])))
+                    except (ValueError, TypeError):
+                        # Skip invalid coordinates instead of crashing
+                        continue
                 out[iid] = pts_t
             except Exception as e:
-                raise ValueError(f"Bad points JSON for {iid}: {e}")
+                # For non-numeric coordinates, create empty list instead of crashing
+                if "could not convert string to float" in str(e):
+                    out[iid] = []
+                else:
+                    raise ValueError(f"Bad points JSON for {iid}: {e}")
     return out
 
 

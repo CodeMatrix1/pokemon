@@ -99,9 +99,12 @@ class TestMatchingAndRadius(unittest.TestCase):
         
         # Test with medium radius (should match one)
         matches_medium, missed_medium, unhit_medium = greedy_match(shots, centers, 8.0)
-        self.assertEqual(len(matches_medium), 1)
-        self.assertEqual(len(missed_medium), 1)
-        self.assertEqual(len(unhit_medium), 1)
+        # Distance from shot 0 to target 0: sqrt((10-15)^2 + (10-15)^2) = sqrt(50) ≈ 7.07
+        # Distance from shot 1 to target 1: sqrt((20-25)^2 + (20-25)^2) = sqrt(50) ≈ 7.07
+        # Both are within radius 8, so both should match
+        self.assertEqual(len(matches_medium), 2)
+        self.assertEqual(len(missed_medium), 0)
+        self.assertEqual(len(unhit_medium), 0)
         
         # Test with large radius (should match both)
         matches_large, missed_large, unhit_large = greedy_match(shots, centers, 15.0)

@@ -95,37 +95,54 @@ class EnhancedPokemonTargetingSystem:
         """
         text_lower = text.lower()
         
-        if any(word in text_lower for word in ["urgent", "immediately", "asap", "critical"]):
+        # High priority keywords
+        high_priority = ["urgent", "immediately", "asap", "critical", "high-priority", 
+                        "high priority", "emergency", "immediate", "right now"]
+        
+        # Medium priority keywords  
+        medium_priority = ["soon", "important", "priority", "significant"]
+        
+        if any(word in text_lower for word in high_priority):
             return "high"
-        elif any(word in text_lower for word in ["soon", "priority", "important"]):
+        elif any(word in text_lower for word in medium_priority):
             return "medium"
         else:
             return "normal"
     
     def classify_pokemon_role(self, context: str) -> str:
         """
-        Classify Pokémon role based on context.
+        Classify Pokémon role based on context with improved accuracy.
         """
         context_lower = context.lower()
         
-        target_keywords = [
-            "neutralize", "eliminate", "destroy", "target", "threat", "dangerous",
-            "hostile", "attack", "combat", "defeat", "stop", "prevent", "anomalous",
-            "unusual", "suspicious", "imminent threat", "must be stopped", "take down"
-        ]
+        # Enhanced target keywords with weights
+        target_keywords = {
+            "neutralize": 3, "eliminate": 3, "destroy": 3, "kill": 3, "target": 2,
+            "threat": 2, "dangerous": 2, "hostile": 2, "attack": 2, "combat": 2,
+            "defeat": 2, "stop": 2, "prevent": 2, "anomalous": 2, "unusual": 2,
+            "suspicious": 2, "imminent threat": 4, "must be stopped": 3,
+            "take down": 3, "engage": 2, "take out": 2
+        }
         
-        protected_keywords = [
-            "protect", "care", "don't", "avoid", "spare", "safe", "friendly",
-            "ally", "innocent", "civilians", "draw into combat", "not to",
-            "remember", "nearby", "take care", "preserve", "guard"
-        ]
+        # Enhanced protected keywords with weights
+        protected_keywords = {
+            "protect": 3, "care": 2, "don't": 2, "avoid": 3, "spare": 3,
+            "safe": 2, "friendly": 2, "ally": 2, "innocent": 3, "civilians": 3,
+            "draw into combat": 3, "not to": 2, "remember": 2, "nearby": 1,
+            "take care": 2, "preserve": 3, "guard": 2, "defend": 2,
+            "keep safe": 3, "do not harm": 4, "do not hit": 4
+        }
         
-        target_score = sum(1 for keyword in target_keywords if keyword in context_lower)
-        protected_score = sum(1 for keyword in protected_keywords if keyword in context_lower)
+        # Calculate weighted scores
+        target_score = sum(weight for keyword, weight in target_keywords.items() 
+                          if keyword in context_lower)
+        protected_score = sum(weight for keyword, weight in protected_keywords.items() 
+                             if keyword in context_lower)
         
-        if target_score > protected_score:
+        # Improved decision logic
+        if target_score > protected_score and target_score > 0:
             return "target"
-        elif protected_score > target_score:
+        elif protected_score > target_score and protected_score > 0:
             return "protected"
         else:
             return "neutral"
@@ -175,7 +192,7 @@ class EnhancedPokemonTargetingSystem:
     
     def get_pokemon_context(self, text: str, pokemon: str) -> str:
         """
-        Get context around a Pokémon name with improved window size.
+        Get context around a Pokémon name with improved window size and multi-species handling.
         """
         pokemon_lower = pokemon.lower()
         text_lower = text.lower()
@@ -185,10 +202,23 @@ class EnhancedPokemonTargetingSystem:
             return ""
         
         # Extract larger context window
-        context_start = max(0, start_pos - 100)
-        context_end = min(len(text), start_pos + len(pokemon) + 100)
+        context_start = max(0, start_pos - 150)
+        context_end = min(len(text), start_pos + len(pokemon) + 150)
         
-        return text[context_start:context_end]
+        context = text[context_start:context_end]
+        
+        # For multi-species scenarios, look for connecting words
+        context_lower = context.lower()
+        if any(connector in context_lower for connector in ["and", "or", "but", "while", "whereas"]):
+            # Extend context to include the full sentence
+            sentence_start = max(0, context.rfind('.', 0, start_pos - context_start) + 1)
+            sentence_end = context.find('.', start_pos - context_start)
+            if sentence_end == -1:
+                sentence_end = len(context)
+            
+            return context[sentence_start:sentence_end].strip()
+        
+        return context
     
     def parse_mission_orders_fallback(self, order_text: str) -> Dict:
         """
