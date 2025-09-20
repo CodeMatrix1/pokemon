@@ -1,0 +1,14 @@
+{
+  "img_00000.png": "URGENT: HQ has detected unusual Bulbasaur activity in Sector 7. Field sensors logged anomalous behavior that suggests an imminent threat. Remember there are Pikachu and Charizard nearby — take care not to draw them into combat. You are to neutralize the bulbasaurs immediately.",
+  "img_00001.png": "Target all hostile Charmander in the area. Protect Pikachu civilians at all costs.",
+  "img_00002.png": "Eliminate the dangerous Mewtwo immediately. Exercise extreme caution around friendly Bulbasaur.",
+  "img_00003.png": "Capture the suspicious Pikachu for interrogation. Avoid collateral damage to Charizard.",
+  "img_00004.png": "Investigate the area for Pokemon activity. Do not engage any targets unless threatened.",
+  "img_00005.png": "Protect all innocent Bulbasaur civilians. No targets to engage.",
+  "img_00006.png": "Multiple targets detected: neutralize Bulbasaur and Charmander. Keep Pikachu safe.",
+  "img_00007.png": "Contradictory orders: target Pikachu but also protect Pikachu from harm.",
+  "img_00008.png": "Ambiguous situation: Mewtwo status unclear. Use your judgment.",
+  "img_00009.png": "Standard reconnaissance mission. Monitor area for activity.",
+  "_default": "Stand by for orders."
+}
+
