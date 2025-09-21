@@ -120,7 +120,7 @@ def main():
                 print(f"\nTest failed with error: {e} and prompt: {i}.{prompt}")
                 import traceback
                 traceback.print_exc()
-        results.append({"image_id":prompt["image_id"],"points":ans})
+        results.append({"image_id":prompt["image_id"],"points":str(ans)})
         print("\n" + "=" * 50)
         i+=1
     print("All tests completed!")

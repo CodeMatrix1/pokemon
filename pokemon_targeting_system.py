@@ -236,7 +236,7 @@ def generate_targeting_coordinates(image_path: str, mission_orders: str) -> List
         if species in targets:
             # Calculate the center of the bounding box as the targeting coordinates
             x, y, w, h = pokemon["bounding_box"]
-            target_coord = (x + w / 2, y + h / 2)
+            target_coord = [x + w / 2, y + h / 2]
             targeting_coordinates.append(target_coord)
             print(f"  Targeting {species} at coordinates: {target_coord}")
         elif species in protected:
